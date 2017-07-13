@@ -15,7 +15,7 @@
         "name": "Humidity Sensor",
         "description": "An ambient humidity sensor.",
         "unit": "%",
-        "value": 0,
+        "value": 80,
         "gpio": 12
       },
       "pir": {
