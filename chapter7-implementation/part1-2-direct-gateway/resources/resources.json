@@ -29,21 +29,21 @@
       "leds": {
         "1": {
           "name": "LED 1",
-          "value": true,
-          "gpio": 4
+          "value": false,
+          "gpio": 6
         },
         "2": {
           "name": "LED 2",
           "value": false,
-          "gpio": 6
+          "gpio": 4
         },
         "3": {
-          "name": "LED 2",
+          "name": "LED 3",
           "value": false,
           "gpio": 20
         },
         "4": {
-          "name": "LED 2",
+          "name": "LED 4",
           "value": false,
           "gpio": 21
         }
