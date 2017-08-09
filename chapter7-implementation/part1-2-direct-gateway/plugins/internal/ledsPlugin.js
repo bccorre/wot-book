@@ -13,10 +13,10 @@ var localParams = {'simulate': false, 'frequency': 2000};
 
 exports.start = function (params) {
   localParams = params;
-  observe(model, pluginName, actuator); //#A
-  observe(model1,pluginName1,actuator1);
-  observe(model2,pluginName2,actuator2);
-  observe(model3,pluginName3,actuator3);
+  observe(model); //#A
+  observe1(model1);
+  observe2(model2);
+  observe3(model3);
 
   if (localParams.simulate) {
     simulate();
@@ -40,17 +40,70 @@ exports.stop = function () {
   console.info('%s plugin stopped!', pluginName3);
 };
 
-function observe(what,name,actuator_var) {
+function observe(what) {
   Object.observe(what, function (changes) {
-    console.info('Change detected by plugin for %s...', name);
-    switchOnOff(actuator_var,what.value,name); //#B
+    console.info('Change detected by plugin for %s...', pluginName);
+    switchOnOff(model.value); //#B
   });
 };
 
-function switchOnOff(actuator_var,value,name) {
+function observe1(what) {
+  Object.observe(what, function (changes) {
+    console.info('Change detected by plugin for %s...', pluginName1);
+    switchOnOff1(model1.value); //#B
+  });
+};
+
+function observe2(what) {
+  Object.observe(what, function (changes) {
+    console.info('Change detected by plugin for %s...', pluginName2);
+    switchOnOff2(model2.value); //#B
+  });
+};
+
+function observe3(what) {
+  Object.observe(what, function (changes) {
+    console.info('Change detected by plugin for %s...', pluginName3);
+    switchOnOff3(model3.value); //#B
+  });
+};
+
+function switchOnOff(value) {
   if (!localParams.simulate) {
-    actuator_var.write(value === true ? 1 : 0, function () { //#C
-      console.info('Changed value of %s to %s', name, value);
+    actuator.write(value === true ? 1 : 0, function () { //#C
+      console.info('Changed value of %s to %s', pluginName, value);
+    });
+  }
+};
+
+function switchOnOff1(value) {
+  if (!localParams.simulate) {
+    actuator1.write(value === true ? 1 : 0, function () { //#C
+      console.info('Changed value of %s to %s', pluginName1, value);
+    });
+  }
+};
+
+function switchOnOff2(value) {
+  if (!localParams.simulate) {
+    actuator2.write(value === true ? 1 : 0, function () { //#C
+      console.info('Changed value of %s to %s', pluginName2, value);
+    });
+  }
+};
+
+function switchOnOff3(value) {
+  if (!localParams.simulate) {
+    actuator3.write(value === true ? 1 : 0, function () { //#C
+      console.info('Changed value of %s to %s', pluginName3, value);
+    });
+  }
+};
+
+function switchOnOff(value) {
+  if (!localParams.simulate) {
+    actuator.write(value === true ? 1 : 0, function () { //#C
+      console.info('Changed value of %s to %s', pluginName, value);
     });
   }
 };
