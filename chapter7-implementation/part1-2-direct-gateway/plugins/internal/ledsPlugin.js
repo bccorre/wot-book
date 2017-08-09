@@ -13,10 +13,10 @@ var localParams = {'simulate': false, 'frequency': 2000};
 
 exports.start = function (params) {
   localParams = params;
-  observe(model, pluginName); //#A
-  observe(model1,pluginName1);
-  observe(model2,pluginName2);
-  observe(model3,pluginName3);
+  observe(model, pluginName, actuator); //#A
+  observe(model1,pluginName1,actuator1);
+  observe(model2,pluginName2,actuator2);
+  observe(model3,pluginName3,actuator3);
 
   if (localParams.simulate) {
     simulate();
@@ -40,17 +40,17 @@ exports.stop = function () {
   console.info('%s plugin stopped!', pluginName3);
 };
 
-function observe(what,name) {
+function observe(what,name,actuator_var) {
   Object.observe(what, function (changes) {
     console.info('Change detected by plugin for %s...', name);
-    switchOnOff(what.value); //#B
+    switchOnOff(actuator_var,what.value,name); //#B
   });
 };
 
-function switchOnOff(value) {
+function switchOnOff(actuator_var,value,name) {
   if (!localParams.simulate) {
-    actuator.write(value === true ? 1 : 0, function () { //#C
-      console.info('Changed value of %s to %s', pluginName, value);
+    actuator_var.write(value === true ? 1 : 0, function () { //#C
+      console.info('Changed value of %s to %s', name, value);
     });
   }
 };
